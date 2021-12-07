@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!--spring和mybatis的整合分为对象和事务两方面，这个配置文件描述的就是spring管理mybatis的事务-->
+    <!--aop编程通过动态代理类为原始类添加辅助功能-->
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--定义一个通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--  约定优于编码 设置事务详情 设置可能的操作名称 propagation传播行为-->
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="select*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="add*"/>
+            <tx:method name="save*"/>
+            <tx:method name="insert*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="update*"/>
+        </tx:attributes>
+
+    </tx:advice>
+
+    <!--通过平台事务管理器拦截service中的所有方法，并通过txAdvice辅助对象对service中的方法进行更加细分的约定-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qianfeng.openapi..service..*.*(..))"/>
+    </aop:config>
+</beans>
