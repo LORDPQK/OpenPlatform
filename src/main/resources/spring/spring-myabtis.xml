@@ -10,12 +10,12 @@
 
     <!-- 数据库连接的相关信息配置 -->
     <!--  导入配置文件-->
-    <context:property-placeholder location="classpath*:conf/db.properties"/>
+    <context:property-placeholder location="classpath*:conf/jdbc.properties"/>
     <!-- dataSource -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"></property>
         <property name="url" value="${jdbc.url}"></property>
-        <property name="username" value="${jdbc.user}"></property>
+        <property name="username" value="${jdbc.username}"></property>
         <property name="password" value="${jdbc.password}"></property>
     </bean>
 
