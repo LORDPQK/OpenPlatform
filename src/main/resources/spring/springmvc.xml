@@ -10,7 +10,13 @@
 <!--
 按照单一职责原则，我们springmvc负责的是我们的controller,所以我们需要扫描controller
 -->
+    <context:component-scan base-package="pqk.project1.openapi.web.master.controller"></context:component-scan>
 
     <!--配置我们的各种适配器-->
+
     <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--mapping映射 layui开头的都映射到 location具体的位置-->
+    <mvc:resources mapping="/layui/**" location="/layui/"></mvc:resources>
+
 </beans>

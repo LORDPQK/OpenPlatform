@@ -20,4 +20,9 @@
         </plugin>
 
     </plugins>
+    <mappers>
+        <mapper resource="pqk/project1/openapi/web/master/CustomerMapper.xml"></mapper>
+    </mappers>
+
+
 </configuration>
