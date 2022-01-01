@@ -33,6 +33,6 @@
 
     <!--通过平台事务管理器拦截service中的所有方法，并通过txAdvice辅助对象对service中的方法进行更加细分的约定-->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.qianfeng.openapi..service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* pqk.project1.openapi..service..*.*(..))"/>
     </aop:config>
 </beans>

@@ -1,5 +1,7 @@
 package pqk.project1.openapi.web.master.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pqk.project1.openapi.web.master.mapper.CustomerMapper;
@@ -39,6 +41,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void deleteCustomerByIds(long[] ids) {
+        customerMapper.deleteCustomerByIds(ids);
+    }
+
+    @Override
     public Customer getCustomerById(Long id) {
         if (id != null) {
             return customerMapper.getCustomerById(id);
@@ -51,5 +58,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getAllCustomers() {
         return customerMapper.getAllCustomers();
+    }
+
+    @Override
+    public PageInfo<Customer> getAllCustomerByPage(Integer page, Integer limit) {
+        PageHelper.startPage(page,limit);
+        List<Customer> allCustomers = customerMapper.getAllCustomers();
+        return new PageInfo<Customer>(allCustomers);
     }
 }

@@ -11,7 +11,7 @@
         SELECT LAST_INSERT_ID()
     </selectKey>
 
-     INSERT INTO customer(username,password,nickname,address,money,state) VALUE (#{username},#{password},#{nickname},#{address},#{money},#{state})
+     INSERT INTO customer(username,password,nickname,address,money,states) VALUE (#{username},#{password},#{nickname},#{address},#{money},#{states})
  </insert>
     
     
@@ -40,21 +40,32 @@
             </if>
 
             <if test="state!=null">
-                state =#{state},
+                states =#{states},
             </if>
         </trim>
+        WHERE  id=#{id}
     </update>
 
     <delete id="deleteCustomerById" parameterType="long">
         DELETE FROM customer WHERE  id =#{id}
     </delete>
 
-    <select id="getCustomerById" parameterType="long">
-        SELECT id,username,password,nickname,address,money,state,FROM customer WHERE id=#{id}
+    <select id="getCustomerById" parameterType="long" resultType="pqk.project1.openapi.web.master.pojo.Customer">
+        SELECT id,username,password,nickname,address,money,states
+        FROM customer WHERE id=#{id}
     </select>
 
-    <select id="getAllCustomers" parameterType="long">
-        SELECT id,username,password,nickname,address,money,state,FROM customer
+    <select id="getAllCustomers" parameterType="long" resultType="pqk.project1.openapi.web.master.pojo.Customer">
+        SELECT id,username,password,nickname,address,money,states FROM customer
     </select>
+
+    <delete id="deleteCustomerByIds">
+        DELETE FROM customer
+        where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+
+    </delete>
 
 </mapper>

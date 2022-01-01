@@ -6,13 +6,13 @@
          metadata-complete="true">
 
     <!--加载spring的配置-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/spring-*.xml</param-value>
     </context-param>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
 
     <!--tomcat中默认的servlet来处理所有的html文件，这样就不会被springmvc拦截-->
     <!--servlet-mapping 将URL模式映射到某个Servlet，即该Servlet处理的URL-->
@@ -37,5 +37,7 @@
         <!--访问所有的地址都会被springmvc拦截-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
 
 </web-app>

@@ -19,17 +19,20 @@
         <property name="password" value="${jdbc.password}"></property>
     </bean>
 
+
+
     <!--配置工厂  -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--连接池配置-->
         <property name="dataSource" ref="dataSource"></property>
         <!--别名扫描-->
-        <property name="typeAliasesPackage" value="com.qianfeng.openapi.web.master.pojo"></property>
+        <property name="typeAliasesPackage" value="pqk.project1.openapi.web.master.pojo"></property>
         <!-- sql映射文件路径 配置mapper的xml文件的位置 -->
         <property name="mapperLocations" value="classpath*:pqk/project1/openapi/web/master/mapper/*.xml"></property>
         <!--配置mybatis配置文件位置-->
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
     </bean>
+
     <!-- 配置扫描mapper的接口位置 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="pqk.project1.openapi.web.master.mapper"></property>
