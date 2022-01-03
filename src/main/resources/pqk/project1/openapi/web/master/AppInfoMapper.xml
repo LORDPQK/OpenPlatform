@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org.//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 接口的全限定名称-->
+<mapper namespace="pqk/project1/openapi/web/master/mapper/AppInfoMapper.java">
+
+    <insert id="insertAppInfo" parameterType="pqk/project1/openapi/web/master/pojo/AppInfo">
+        <selectKey keyProperty="id" resultType="long">
+            SELECT  LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO app_info(appName,appkey,appSecret,redirectUrl,'limit',description,cusld,states,corpName)
+        VALUE (${appName},${appkey},${appSecret},${redirectUrl},${limit},${description},${cusld},${states},${corpName})
+    </insert>
+
+    <update id="updateAppInfo" parameterType="pqk/project1/openapi/web/master/pojo/AppInfo">
+        UPDATE app_info
+        SET
+        <trim suffixOverrides=",">
+            <if test="appName != null and appName!=''">
+                appName =#{appName}
+            </if>
+
+            <if test="appkey != null and appkey!=''">
+                appkey =#{appkey}
+            </if>
+            <if test="appSecret != null and appSecret!=''">
+                appSecret =#{appSecret}
+            </if>
+            <if test="redirectUrl != null and redirectUrl!=''">
+                redirectUrl =#{redirectUrl}
+            </if>
+            <if test="description != null and description!=''">
+                description =#{description}
+            </if>
+            <if test="corpName != null and corpName!=''">
+                corpName =#{corpName}
+            </if>
+            <if test="limit != null">
+                limit =#{limit}
+            </if>
+            <if test="cusld != null">
+                cusld =#{cusld}
+            </if>
+            <if test="states!= null">
+                states =#{states}
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getAppInfoById" parameterType="long" resultType="pqk/project1/openapi/web/master/pojo/AppInfo">
+        select id,appName,appkey,appSecret,redirectUrl,'limit',description,cusld,states,corpName FROM app_info
+        WHERE id=#{id}
+    </select>
+
+    <select id="getAppInfoById" parameterType="long" resultType="pqk/project1/openapi/web/master/pojo/AppInfo">
+        select id,appName,appkey,appSecret,redirectUrl,'limit',description,cusld,states,corpName FROM app_info
+    </select>
+
+    <delete id="deleteAppInfoById" parameterType="long" >
+        delete from app_info where id = #{id}
+    </delete>
+
+    <delete id="deleteAppInfoByIds">
+        DELETE FROM app_info
+        where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+</mapper>

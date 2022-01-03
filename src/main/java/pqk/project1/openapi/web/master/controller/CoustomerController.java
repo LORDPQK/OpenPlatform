@@ -40,9 +40,9 @@ public class CoustomerController {
     public AjaxMessage deleteCustomer(long[] ids){
             if(ids!=null && ids.length>0){
                 customerService.deleteCustomerByIds(ids);
-                return new AjaxMessage(true,"更新成功");
+                return new AjaxMessage(true,"删除成功");
             }
-            return  new AjaxMessage(false,"更新失败");
+            return  new AjaxMessage(false,"删除失败");
     }
 
 
